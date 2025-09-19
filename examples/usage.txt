@@ -1,0 +1,18 @@
+Example commands (after `pip install -r requirements.txt`):
+
+# start server (in one terminal)
+python -m server.main
+
+# generate keys for alice and bob
+python scripts/generate_keys.py --name alice
+python scripts/generate_keys.py --name bob
+
+# register public keys
+python scripts/register_key.py --server http://127.0.0.1:8000 --user alice --pubkey alice_public.key
+python scripts/register_key.py --server http://127.0.0.1:8000 --user bob --pubkey bob_public.key
+
+# alice sends a message to bob
+python scripts/send_message.py --server http://127.0.0.1:8000 --sender alice --recipient bob --private-key alice_private.key --recipient-pub bob_public.key --message "Secret — read once"
+
+# bob receives (and message is deleted on server)
+python scripts/receive_messages.py --server http://127.0.0.1:8000 --user bob --private-key bob_private.key
